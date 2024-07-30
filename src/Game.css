@@ -254,6 +254,7 @@
     font-family: 'Courier New', Courier, monospace;
     background: #c5cae994;
     transform: translate(0%, -50%);
+    box-shadow: 0 0 15px rgb(21 225 41 / 97%);
 }
 
 .controls {
