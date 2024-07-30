@@ -332,7 +332,7 @@
   bottom: 0;
   background-color: #353b69;
   background-image: linear-gradient(to right, #d77272 1px, transparent 1px), linear-gradient(to bottom, #2aa430 1px, transparent 1px);
-  background-size: 52.5% 75%;
+  background-size: 0% 75%;
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 0 15px rgb(21 225 41 / 97%);
