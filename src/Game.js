@@ -221,7 +221,7 @@ const Game = () => {
           </div>
           <div className="best-score">BEST: {score}</div>
           <div className="start-buttons">
-            <button className="start-button" onClick={restartGame}>Start Game</button>
+            <button className="start-button" onClick={restartGame}>Start my Game</button>
             <div className="social-buttons">
             <a href="https://github.com/vt-mishra" target="_blank" rel="noopener noreferrer" className="social-button github-button">
                 <FontAwesomeIcon icon={faGithub} />
