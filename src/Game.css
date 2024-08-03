@@ -82,6 +82,9 @@
     gap: 15px;
     
   }
+  .score{
+    margin-bottom: 5px;
+  }
   
   .start-button {
     font-size: 20px;
@@ -96,7 +99,19 @@
     z-index: 1; /* Ensure button is above the bubbles */
     box-shadow: 0 0 5px #b1ad95b8;
   }
-  
+  .start-button-pzzl {
+    font-size: 12px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    position: relative; /* Ensure button is positioned relative to its container */
+    z-index: 1; /* Ensure button is above the bubbles */
+    box-shadow: 0 0 5px #b1ad95b8;
+  }
   
   .social-buttons {
     display: flex;
