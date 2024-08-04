@@ -8,7 +8,7 @@
 }
 
 .puzzle-board {
-  margin-top: 10px;
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 80px);
   grid-template-rows: repeat(4, 80px);
@@ -44,10 +44,15 @@
 }
 
 .puzzle-info {
-  margin-top: 20px;
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  margin-top: 30px;
+
 }
 
 .reset-button {
+  width: 180px;
   border: none;
   padding: 12px 9px;
   cursor: pointer;
@@ -71,6 +76,7 @@
   color: green;
 }
 .back-button-pzzl{
+    width: 60px;
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
@@ -85,6 +91,7 @@
     box-shadow: 0 0 15px rgb(21 225 41 / 97%);
   }
   .moves {
+    width: 150px;
     padding: 8px 5px;
     margin-top: 20px;
     font-size: 1rem;
@@ -94,4 +101,19 @@
     background-color: #353b69;
     transform: translate(0%, -50%);
     box-shadow: 0 0 15px rgb(21 225 41 / 97%);
+}
+
+.go-to-tictactoe-button{
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 25px;
+  font-size: 1rem;
+  color: #FCE4EC;
+  border-radius: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #353b69;
+  transform: translate(0%, -50%);
+  box-shadow: 0 0 15px rgb(21 225 41 / 97%);
 }
