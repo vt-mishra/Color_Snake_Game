@@ -1,0 +1,121 @@
+/* Tetris.css */
+
+.tetris-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0;
+  min-height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background-color: #353b69;
+  background-image: linear-gradient(to right, #d77272 1px, transparent 1px), 
+                    linear-gradient(to bottom, #2aa430 1px, transparent 1px);
+  background-size: 25% 14%;
+  box-shadow: 0 0 15px rgb(21 225 41 / 75%);
+}
+
+.tetris-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 85vh;
+  overflow: hidden; /* Ensure no overflow */
+  background-color: #353b69;
+  background-image: linear-gradient(to right, #d77272 1px, transparent 1px), 
+                    linear-gradient(to bottom, #2aa430 1px, transparent 1px);
+  background-size: 25% 14%;
+  box-shadow: 0 0 10px rgb(21 225 41 / 75%);
+}
+
+.tetris-board {
+  display: flex;
+  flex-direction: column;
+  width: calc(35px * 10); /* 10 columns */
+  height: calc(30px * 20); /* 20 rows */
+  background-color: #1a1a1a;
+  box-shadow: 0 0 20px rgba(45, 49, 116, 0.5);
+  position: relative;
+  overflow: hidden; /* Ensure cells stay within the board */
+}
+
+.tetris-row {
+  display: flex;
+}
+
+.tetris-cell {
+  width: 34px;
+  height: 28px;
+  border: 1px solid #555;
+}
+
+.tetris-cell.filled {
+  border-color: #000;
+}
+
+.scoreboard-tetris {
+  margin-bottom: 10px;
+  color: white;
+  text-align: center;
+}
+
+
+
+.scoreboard-tetris .back-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.scoreboard-tetris .score {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 1000;
+}
+
+.game-over p {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.game-over button {
+  padding: 10px 20px;
+  font-size: 18px;
+  color: white;
+  background-color: #444;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.game-over button:hover {
+  background-color: #555;
+}
+
+.footer {
+  text-align: center;
+  box-shadow: 0 0 10px rgb(21 225 41 / 75%);
+
+}
+
+.footer .fa-icon {
+  margin: 0 5px;
+}
+

@@ -3,6 +3,7 @@ import './TicTacToe.css'; // Create a CSS file for styling
 import { faArrowLeft, faCopyright, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Puzzle from './Puzzle';
+import Tetris from './Tetris'; // Import Tetris component
 
 const SIZE = 3; // 3x3 Tic-Tac-Toe board
 
@@ -12,11 +13,13 @@ const Game = () => {
   if (game === 'puzzle') {
     return <Puzzle onBack={() => setGame('ticTacToe')} />;
   }
-
-  return <TicTacToe onBack={() => setGame('puzzle')} />;
+  if (game === 'tetris') {
+    return <Tetris onBack={() => setGame('ticTacToe')} setGame={setGame} />;
+  }
+  return <TicTacToe onBack={() => setGame('puzzle')} setGame={setGame} />;
 };
 
-const TicTacToe = ({ onBack }) => {
+const TicTacToe = ({ onBack,setGame }) => {
   const [board, setBoard] = useState(Array(SIZE * SIZE).fill(null));
   const [isXNext, setIsXNext] = useState(true);
   const [winner, setWinner] = useState(null);
@@ -153,6 +156,9 @@ const TicTacToe = ({ onBack }) => {
           {winner ? (winner === 'Tie' ? 'It\'s a Tie!' : `Winner: ${winner}`) : `Next Player: ${isXNext ? 'X' : 'O'}`}
         </div>
         <button className="reset-button-tic" onClick={handleReset}>Reset Game</button>
+        <button className="reset-button-tic" onClick={() => setGame('tetris')}>
+        Play Tetris
+      </button>
         <div className="footer">
           <FontAwesomeIcon icon={faCopyright} className="fa-icon" /> Created by
           <FontAwesomeIcon icon={faUserCircle} className="fa-icon" /> Vatan Mishra
