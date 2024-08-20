@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import './Tetris.css';
-import './Game.css'
+import './Game.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCopyright, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 
-// Define constants and utility functions
-const COLS = 10; // Number of columns
-const ROWS = 20; // Number of rows
-const BLOCK_SIZE = 30; // Block size in pixels
+const COLS = 10;
+const ROWS = 20;
 
 const TETROMINOS = {
   I: { shape: [[1, 1, 1, 1]], color: 'cyan' },
@@ -19,9 +17,7 @@ const TETROMINOS = {
   Z: { shape: [[1, 1, 0], [0, 1, 1]], color: 'red' },
 };
 
-const createBoard = () => {
-  return Array.from({ length: ROWS }, () => Array(COLS).fill(0));
-};
+const createBoard = () => Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
 const randomTetromino = () => {
   const tetrominos = 'IJLOSTZ';
@@ -39,70 +35,18 @@ const Tetris = ({ onBack }) => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!gameOver) {
-        movePieceDown();
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [currentPiece, board, gameOver]);
-
-  const movePieceDown = () => {
-    const { shape, position } = currentPiece;
-    const newPos = { ...position, y: position.y + 1 };
-
-    if (!isValidMove(shape, newPos)) {
-      setPiece();
-      return;
-    }
-
-    setCurrentPiece({ shape, position: newPos, color: currentPiece.color });
-  };
-
-  const movePieceLeft = () => {
-    const { shape, position } = currentPiece;
-    const newPos = { ...position, x: position.x - 1 };
-
-    if (isValidMove(shape, newPos)) {
-      setCurrentPiece({ shape, position: newPos, color: currentPiece.color });
-    }
-  };
-
-  const movePieceRight = () => {
-    const { shape, position } = currentPiece;
-    const newPos = { ...position, x: position.x + 1 };
-
-    if (isValidMove(shape, newPos)) {
-      setCurrentPiece({ shape, position: newPos, color: currentPiece.color });
-    }
-  };
-
-  const rotatePiece = () => {
-    const { shape, position } = currentPiece;
-    const rotatedShape = rotate(shape);
-
-    if (isValidMove(rotatedShape, position)) {
-      setCurrentPiece({ shape: rotatedShape, position, color: currentPiece.color });
-    }
-  };
-
-  const rotate = (matrix) => {
-    return matrix[0].map((_, i) => matrix.map(row => row[i])).reverse();
-  };
-
   const isValidMove = (shape, position) => {
     for (let y = 0; y < shape.length; y++) {
       for (let x = 0; x < shape[y].length; x++) {
         if (shape[y][x] !== 0) {
           const newX = position.x + x;
           const newY = position.y + y;
-  
+
           if (
-            newX < 0 ||  // Check left boundary
-            newX >= COLS ||  // Check right boundary
-            newY >= ROWS ||  // Check bottom boundary
-            (newY >= 0 && board[newY][newX] !== 0)  // Check if the cell is occupied
+            newX < 0 || // Left boundary
+            newX >= COLS || // Right boundary
+            newY >= ROWS || // Bottom boundary
+            (newY >= 0 && board[newY][newX] !== 0) // Occupied cell
           ) {
             return false;
           }
@@ -111,10 +55,33 @@ const Tetris = ({ onBack }) => {
     }
     return true;
   };
-  
 
-  const setPiece = () => {
-    const newBoard = board.map(row => row.slice());
+  const movePiece = (dx, dy) => {
+    const { shape, position } = currentPiece;
+    const newPos = { x: position.x + dx, y: position.y + dy };
+
+    if (isValidMove(shape, newPos)) {
+      setCurrentPiece({ ...currentPiece, position: newPos });
+    } else if (dy > 0) {
+      placePiece();
+    }
+  };
+
+  const rotatePiece = () => {
+    const { shape, position } = currentPiece;
+    const rotatedShape = rotate(shape);
+
+    if (isValidMove(rotatedShape, position)) {
+      setCurrentPiece({ ...currentPiece, shape: rotatedShape });
+    }
+  };
+
+  const rotate = (matrix) => {
+    return matrix[0].map((_, i) => matrix.map(row => row[i])).reverse();
+  };
+
+  const placePiece = () => {
+    const newBoard = board.map(row => [...row]);
     const { shape, position, color } = currentPiece;
 
     shape.forEach((row, y) => {
@@ -140,15 +107,15 @@ const Tetris = ({ onBack }) => {
   };
 
   const checkRows = (newBoard) => {
-    const clearedBoard = newBoard.filter(row => row.some(cell => cell === 0));
-    const rowsCleared = ROWS - clearedBoard.length;
+    const clearedRows = newBoard.filter(row => row.some(cell => cell === 0));
+    const rowsCleared = ROWS - clearedRows.length;
     setScore(score + rowsCleared * 10);
 
     for (let i = 0; i < rowsCleared; i++) {
-      clearedBoard.unshift(Array(COLS).fill(0));
+      clearedRows.unshift(Array(COLS).fill(0));
     }
 
-    setBoard(clearedBoard);
+    setBoard(clearedRows);
   };
 
   const resetGame = () => {
@@ -167,13 +134,10 @@ const Tetris = ({ onBack }) => {
 
     switch (e.key) {
       case 'ArrowLeft':
-        movePieceLeft();
+        movePiece(-1, 0);
         break;
       case 'ArrowRight':
-        movePieceRight();
-        break;
-      case 'ArrowDown':
-        movePieceDown();
+        movePiece(1, 0);
         break;
       case 'ArrowUp':
         rotatePiece();
@@ -188,9 +152,19 @@ const Tetris = ({ onBack }) => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentPiece, gameOver]);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!gameOver) {
+        movePiece(0, 1);
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [currentPiece, gameOver]);
+
   const renderBoard = () => {
     const { shape, position, color } = currentPiece;
-    const previewBoard = board.map(row => row.slice());
+    const previewBoard = board.map(row => [...row]);
 
     shape.forEach((row, y) => {
       row.forEach((value, x) => {
@@ -221,17 +195,25 @@ const Tetris = ({ onBack }) => {
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
         )}
-        <h1 className='score'>Score: {score}</h1>
+        <h1 className="score">Score: {score}</h1>
       </div>
       <div className="tetris-body">
-        {gameOver && (
+        {gameOver ? (
           <div className="game-over">
             <p>Game Over</p>
             <button onClick={resetGame}>Restart</button>
           </div>
+        ) : (
+          <div className="tetris-board">{renderBoard()}</div>
         )}
-        <div className="tetris-board">{renderBoard()}</div>
       </div>
+      {!gameOver && (
+          <div className="tetris-controls">
+              <button className="arrow-btn left-t" onClick={() => movePiece(-1, 0)}>&#9664;</button>
+            <button className="arrow-btn up-t" onClick={rotatePiece}>&#9650;</button>
+              <button className="arrow-btn right-5t" onClick={() => movePiece(1, 0)}>&#9654;</button>
+          </div>
+        )}
       <div className="footer">
         <FontAwesomeIcon icon={faCopyright} className="fa-icon" /> Created by
         <FontAwesomeIcon icon={faUserCircle} className="fa-icon" /> Vatan Mishra

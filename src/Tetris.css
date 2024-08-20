@@ -17,9 +17,9 @@
 
 .tetris-body {
   display: flex;
-  justify-content: center;
+  flex-flow: column;
   align-items: center;
-  height: 85vh;
+  height: 75vh;
   overflow: hidden; /* Ensure no overflow */
   background-color: #353b69;
   background-image: linear-gradient(to right, #d77272 1px, transparent 1px), 
@@ -29,14 +29,12 @@
 }
 
 .tetris-board {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 20px #2d317480;
   display: flex;
   flex-direction: column;
-  width: calc(35px * 10); /* 10 columns */
-  height: calc(30px * 20); /* 20 rows */
-  background-color: #1a1a1a;
-  box-shadow: 0 0 20px rgba(45, 49, 116, 0.5);
-  position: relative;
-  overflow: hidden; /* Ensure cells stay within the board */
+  height: 75vh;
+  overflow: hidden;
 }
 
 .tetris-row {
@@ -45,7 +43,7 @@
 
 .tetris-cell {
   width: 34px;
-  height: 28px;
+  height: 23.7px;
   border: 1px solid #555;
 }
 
@@ -54,7 +52,7 @@
 }
 
 .scoreboard-tetris {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   color: white;
   text-align: center;
 }
@@ -118,4 +116,8 @@
 .footer .fa-icon {
   margin: 0 5px;
 }
-
+.tetris-controls{
+   margin-top: 35px;
+  display: flex;
+  gap: 30px;
+}
