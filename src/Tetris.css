@@ -121,3 +121,26 @@
   display: flex;
   gap: 30px;
 }
+
+.tetris-cell.filled {
+  animation: fill-animation 0.1s ease-in-out; /* Decrease duration to speed up */
+  background-color: inherit; /* Use a static color */
+  transition: none; /* Remove any transition effects */
+  animation: none; /* Remove any animations */
+}
+@keyframes fill-animation {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: inherit;
+  }
+}
+
+@media (max-width: 500px) and (min-height:600px){
+  .tetris-cell {
+    width: 34px;
+    height: 27.2px;
+    border: 1px solid #555;
+  }
+}

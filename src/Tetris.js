@@ -148,6 +148,15 @@ const Tetris = ({ onBack }) => {
   };
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      if (!gameOver) {
+        movePiece(0, 1);
+      }
+    }, 500); // Decrease interval time to speed up the fall
+    return () => clearInterval(interval);
+  }, [currentPiece, gameOver]);
+  
+  useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [currentPiece, gameOver]);
@@ -190,11 +199,9 @@ const Tetris = ({ onBack }) => {
   return (
     <div className="tetris-container">
       <div className="scoreboard-tetris">
-        {gameOver && (
           <button className="back-button" onClick={onBack}>
             <FontAwesomeIcon icon={faArrowLeft} />
           </button>
-        )}
         <h1 className="score">Score: {score}</h1>
       </div>
       <div className="tetris-body">
