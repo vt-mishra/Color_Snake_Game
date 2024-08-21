@@ -137,10 +137,11 @@
   }
 }
 
-@media (max-width: 500px) and (min-height:600px){
+@media (max-width: 500px) and (min-height:780px){
   .tetris-cell {
     width: 34px;
-    height: 27.2px;
+    height: 28.1px;
     border: 1px solid #555;
   }
 }
+
